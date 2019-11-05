@@ -1,0 +1,78 @@
+\documentclass[12pt, italian]{report}
+\usepackage[utf8]{inputenc} % Per gli accenti
+\usepackage[italian]{babel} 
+\usepackage{import} % Per importare file
+\usepackage{todonotes} % Per aggiungere todo
+\usepackage{graphicx}
+\usepackage{subfig} % Per innestare immagini
+%\graphicspath{ {images/} }
+\usepackage{import} % Per importare file
+\usepackage{xcolor} % Per usare colori
+\usepackage{listings} % Per aggiungere snippet
+\usepackage{minted} % Per aggiungere snippet
+
+% necessary to patch minted and inputminted red squares
+\usepackage{etoolbox,xpatch}
+
+% removes minted red squares around chars considered as an error
+\makeatletter
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+\makeatother
+
+% removes inputminted red squares around chars considered as an error
+\makeatletter
+\AtBeginEnvironment{minted}{\dontdofcolorbox}
+\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+\xpatchcmd{\inputminted}{\minted@fvset}{\minted@fvset\dontdofcolorbox}{}{}
+\makeatother
+
+% hyperlink
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,   
+    citecolor=black,
+    urlcolor=blue,
+    %pdfpagemode=FullScreen,
+}
+%\usepackage{url}
+%\usepackage{breakurl}
+
+\usepackage{svg}
+\usepackage{amsmath}
+
+\newcommand{\emailaddr}[1]{\href{mailto:#1}{\texttt{#1}}}
+
+\title{Pre\_thesis}
+
+\author{Andrea Placuzzi \\ \emailaddr{andrea.placuzzi@studio.unibo.it}}
+
+\date{\today}
+
+\usepackage{natbib}
+
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\import{chapters/}{Requirement.tex}
+
+
+\import{chapters/}{Architecture.tex}
+
+
+\import{chapters/}{Technologies.tex}
+
+
+\import{chapters/}{Design.tex}
+
+
+\import{chapters/}{RoadMap.tex}
+
+
+\end{document}
