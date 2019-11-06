@@ -1,1 +1,50 @@
 \chapter{Technologies}
+
+Below the technologies and libraries used to develop the system:
+
+\begin{itemize}
+    \item \textbf{Protelis} $\rightarrow$ for the aggregate program
+    \item \textbf{DingNet simulator} \footnote{\href{https://github.com/dimoibiehg/DingNet}{DingNet}}
+    \item \textbf{MQTT} $\rightarrow$ for the communication between:
+    \begin{itemize}
+        \item LoRaWan network and Protelis backend
+        \item Protelis nodes to exchange neighborhood information
+        \item Protelis nodes and Neighborhood-Manager
+    \end{itemize}
+    \item \textbf{Kotlin} $\rightarrow$ to implement the Protelis backend
+    \item \textbf{Java v.11} $\rightarrow$ to work on the DingNet simulator that is in Java
+    \item \textbf{Eclipse Paho MQTT client library}\footnote{\href{https://github.com/eclipse/paho.mqtt.java}{MQTT library}} $\rightarrow$ to implement a MQTT client for a real MQTT broker
+\end{itemize}
+
+\section{DingNet simulator}
+DingNet is a simulator for a LoRaWan network of class A. It allows to:
+\begin{itemize}
+    \item define different type of device
+    \item configure the network parameter for each devices and gateways
+    \item configure the position in the environment of devices and gateway
+    \item add different kind of sensors to each device 
+    \item define the path that a device has to follow
+    \item simulate the communication between devices and gateways in both the directions
+\end{itemize}
+
+How it works:
+\begin{itemize}
+    \item the simulator is single thread
+    \item the simulator is "time-based" with a global clock that schedule all the computation
+    \item every device send a packet every X seconds. If the packet is the same of the previous one, the packet isn't sent to avoid use bandwidth for useless message
+    \item if a device don't send any message for Y seconds (with Y $>$ X) then the device send a "keepAlive" message
+    \item when a gateway receive a message from a device, it publish the message on MQTT. Then it check if the there is a message to send to the device and if present send it.
+    \item a device can receive only one message after every sended message.
+    \item during a simulation step:
+    \begin{itemize}
+        \item device consume packet, if it has one
+        \item every movable device moves of one meter if it is pass enough time according to the movement speed
+        \item at the end the global clock is increment of one tick (now 1 millisecond)
+    \end{itemize}
+    \item when the global clock is incremented, it check if are present some trigger/event??? to fire. Now the events??? present are event to send packets and events to know when a packet is arrived to destination. In future they will be used also for:
+    \begin{itemize}
+        \item mote movement
+        \item assure that a mote can't send more message at the same time
+        \item ALOHA protocol
+    \end{itemize}
+\end{itemize}
