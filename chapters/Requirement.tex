@@ -1,8 +1,10 @@
 \chapter{Requirement}
 
-The aim of the thesis is build a pervasive real-time system for smart-city, where we want use the AC paradigm over a LoRaWan network.
+The aim of the thesis is build a simulation for pervasive system for smart-city, where we want use the Aggregate Computing (AC) paradigm over a LoRaWan network. The simulation should be enough realistic to allow to switch to a real deploy with a small effort.
 
 \section{Case study}
+
+We want to define an application able to provide to the user the healthiest route to reach a destination. The route generation will be based on air quality level of the areas to across to reach the destination. The user -- in order to obtain the route -- has to require it to the application deployed in a remote server.
 
 The system should use real-time data to create a city map of quality air.
 The application will use the map to define a route to a destination that avoid areas with poor air quality.
@@ -13,11 +15,4 @@ Data can be produced by two types of sensors:
     \item \textbf{Mobile}: placed on public transport or bicycles
 \end{itemize}
 
-Sensors will use DingNet network to communicate their sensed data. DingNet is a network LoRa-over-MQTT where every device send data to all the gateways inside the communication range. Then the gateways publish sensors data on MQTT server for the application, \autoref{fig:LoRa}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.70]{LoRa.png}
-    \caption{LoRa architecture}
-    \label{fig:LoRa}
-\end{figure}
+All the sensors will be deployed in the LoRaWan network and they will use the LoRa technology to communicate their sensed value. Similarly also the user device, that will interact with the application to require the route, will use the LoRa technology.
