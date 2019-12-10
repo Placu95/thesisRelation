@@ -2,11 +2,11 @@
 
 \section{Mapping between physical world and aggregate abstraction}
 
-The mapping between physical world and aggregate program, \autoref{fig:mapping}, is the following:
+The mapping between physical world and protelis program, \autoref{fig:mapping}, is the following:
 \begin{itemize}
-    \item every sensor is a node of aggregate program
-    \item every user is a node of aggregate program
-    \item every user destination is a node of aggregate program
+    \item every sensor is a node of protelis program
+    \item every user is a node of protelis program
+    \item every user destination is a node of protelis program
 \end{itemize}
 
 \begin{figure}[h]
@@ -15,9 +15,8 @@ The mapping between physical world and aggregate program, \autoref{fig:mapping},
     \caption{Mapping between physical world and aggregate abstraction}
     \label{fig:mapping}
 \end{figure}
-\todo[inline, color=green!70]{modified}
-This three different kind of entity will be AC nodes with different capabilities, and each nodes will be connected to the other with a proximity based network model. 
-Every node of the aggregate program retrieves the data of the physical counterpart from the MQTT server where it publishes them.
+This three different kind of entity will be Protelis nodes with different capabilities, and each nodes will be connected to the other with a proximity based network model. 
+Every node of the protelis program retrieves the data of the physical counterpart from the MQTT server where it publishes them.
 
 \clearpage
 \section{Design Protelis backend}
@@ -41,15 +40,16 @@ The modeling of the execution context for \textit{SensorNode} and \textit{UserNo
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.9]{images/execContextModel_v2a.png}
+    \includegraphics[scale=0.9]{images/execContextModel_v3a.png}
     \caption{Model of execution context for for \textit{SensorNode} and \textit{UserNode}}
     \label{fig:execModel_a}
 \end{figure}
 
 \begin{itemize}
-    \item \textit{MQTTExecutionContext} $\rightarrow$ encapsulates the subscription to the MQTT server where the physical counterpart will publish its data
+    \item \textit{MQTTExecutionContext} $\rightarrow$ encapsulates the subscription to the MQTT server where the physical counterpart publish its data
     \item \textit{PositionedMQTTExecutionContext} $\rightarrow$ implements all the methods of the two interfaces for spatial capabilities
-    \item \textit{SensorExecutionContext} and \textit{UserExecutionContext} $\rightarrow$ implements the specific capabilities of the two different nodes
+    \item \textit{SensorExecutionContext} $\rightarrow$ manage sensed value like: device position and air quality sensor value. 
+    \item \textit{UserExecutionContext} $\rightarrow$ manage the request of route generation and send it to the user device
 \end{itemize}
 
 \textit{DestinationNode} doesn't require to communicate via MQTT with the physical counterpart (because there is not any physical counterpart), so its ExecutionContext is more simple and implements only the two interfaces for spatial capabilities. Its UML schema is presented in \autoref{fig:execModel_b}
@@ -66,23 +66,23 @@ Currently the Network Manager is based on MQTT as it is already used for the Exe
 
 \section{Model of DingNet simulator}
 
-The model of the DingNet simulator is presented in \autoref{fig:envDing}. It is composed from:
+The model of the environment of simulation is presented in \autoref{fig:envDing}. It is composed from:
 \begin{itemize}
-    \item \textit{Environment} $\rightarrow$ represent the environment of the simulation. It contains: a reference to all the entity, geographics information and the global clock to share it with the other entity.
-    \todo[inline]{the clock maybe should not be here, but this modification is not a priority}
+    \item \textit{Environment} $\rightarrow$ represent the environment of the simulation. It contains: a reference to all the entity, geographical information and the global clock to share it with the other entity.
+    % \todo[inline]{the clock maybe should not be here, but this modification is not a priority}
     \item \textit{Mote} $\rightarrow$ represent a device that can send only packets with data sensed from its sensors
     \item \textit{UserMote} $\rightarrow$ represent the user device that can send packets with sensed data but also packets with the request for a route.
 \end{itemize}
-\todo[inline]{I think the other entities have good name and they don't require an explanation for the moment. If it is not so, I will add a description also for the other entities}
+% \todo[inline]{I think the other entities have good name and they don't require an explanation for the moment. If it is not so, I will add a description also for the other entities}
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.9]{images/envDing.png}
-    \caption{Model of the DingNet simulator}
+    \caption{Model of the DingNet environment}
     \label{fig:envDing}
 \end{figure}
 
 In \autoref{fig:loraDing} is presented the model of the LoRa transmission and of a LoRa packet.
-\todo[inline]{As above, I think the entities have good name and they don't require an explanation for the moment. If it is not so, I will add a description for the entities}
+% \todo[inline]{As above, I think the entities have good name and they don't require an explanation for the moment. If it is not so, I will add a description for the entities}
 
 \begin{figure}[h]
     \centering
