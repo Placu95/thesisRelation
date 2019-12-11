@@ -36,30 +36,22 @@ The model of this kind of entities is present in \autoref{fig:node}
 \end{figure}
 
 \subsection{Execution Context}
-The modeling of the execution context for \textit{SensorNode} and \textit{UserNode} is presented in \autoref{fig:execModel_a}.
+The modeling of the hierarchy of execution context for the three kind of nodes is presented in \autoref{fig:execModel}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.9]{images/execContextModel_v3a.png}
-    \caption{Model of execution context for for \textit{SensorNode} and \textit{UserNode}}
-    \label{fig:execModel_a}
+    \includegraphics[scale=0.9]{images/execContextModel_v4.png}
+    \caption{Model of the hierarchy execution context}
+    \label{fig:execModel}
 \end{figure}
 
 \begin{itemize}
-    \item \textit{MQTTExecutionContext} $\rightarrow$ encapsulates the subscription to the MQTT server where the physical counterpart publish its data
-    \item \textit{PositionedMQTTExecutionContext} $\rightarrow$ implements all the methods of the two interfaces for spatial capabilities
+    \item \textit{PositionedExecutionContext} $\rightarrow$ implements all the methods of the two interfaces for spatial capabilities
+    \item \textit{MQTTPositionedExecutionContext} $\rightarrow$ encapsulates the subscription to the MQTT server where the physical counterpart publish its data
     \item \textit{SensorExecutionContext} $\rightarrow$ manage sensed value like: device position and air quality sensor value. 
     \item \textit{UserExecutionContext} $\rightarrow$ manage the request of route generation and send it to the user device
+    \item \textit{DestinationNode} $\rightarrow$ doesn't require to communicate via MQTT with the physical counterpart (because there is not any physical counterpart), so its ExecutionContext is more simple and extend \mbox{\textit{PositionedExecutionContext}} to implements the interfaces for spatial capabilities.
 \end{itemize}
-
-\textit{DestinationNode} doesn't require to communicate via MQTT with the physical counterpart (because there is not any physical counterpart), so its ExecutionContext is more simple and implements only the two interfaces for spatial capabilities. Its UML schema is presented in \autoref{fig:execModel_b}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.9]{images/execContextModel_v2b.png}
-    \caption{Model of execution context for for \textit{DestinationNode}}
-    \label{fig:execModel_b}
-\end{figure}
 
 \subsection{Network Manager}
 Currently the Network Manager is based on MQTT as it is already used for the Execution context.
@@ -80,7 +72,7 @@ The model of the environment of simulation is presented in \autoref{fig:envDing}
     \caption{Model of the DingNet environment}
     \label{fig:envDing}
 \end{figure}
-
+\clearpage
 In \autoref{fig:loraDing} is presented the model of the LoRa transmission and of a LoRa packet.
 % \todo[inline]{As above, I think the entities have good name and they don't require an explanation for the moment. If it is not so, I will add a description for the entities}
 
